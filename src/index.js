@@ -7,7 +7,10 @@ import App from './App';
 import chat from './reducers/index'
 import registerServiceWorker from './registerServiceWorker';
 
-const store = new createStore(chat);
+const store = createStore(chat);
+
+store.subscribe(()=>{console.log("Store Changed",store.getState());
+});
 
 ReactDOM.render(
 <Provider store={store}>

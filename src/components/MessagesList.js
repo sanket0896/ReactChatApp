@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MessagesList = (messages) => {
+const MessagesList = ({messages}) => {
     return(
         <ul id="MessagesList" class="message-list">
-            {messages.map(message => <li key={message.id}>{message.author}: {message.message}</li>)}
+            {messages.map(message => (<li key={message.id}>{message.author}: {message.message}</li>))}
         </ul>
     );
 }

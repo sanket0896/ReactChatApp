@@ -4,14 +4,14 @@ const users = (state = [], action) => {
     switch(action.type){
         case ADD_USER:
             return(
-                state.concat({
+                state.concat([{
                     id: action.id,
                     userName: action.userName
-                })
+                }])
             );
 
         case SHOW_USERS: 
-            return(state);
+            return(action.users);
 
         default: 
             return state;

@@ -20,7 +20,7 @@ export const addUser = (userName) => {
     });
 }
 
-export const messageReceived = () => {
+export const messageReceived = (message,author) => {
     return({
         type: type.MESSAGE_RECEIVED,
         id: nextMessageId++,

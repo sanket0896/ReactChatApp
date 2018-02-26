@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const UsersList = (users) => {
-    // {console.log(users)}
+const UsersList = (props) => {
+    console.log(props);
     return(
         <ul id="UsersList" class="users-list">
-            {users.map(user => <li key={user.id}>{user.userName}</li>)}
+            {props.map(user => (<li key={user.id}>{user.userName}</li>))}
         </ul>
     );
 }
