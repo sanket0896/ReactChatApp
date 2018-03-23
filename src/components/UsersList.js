@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 
 const UsersList = (props) => {
-    console.log(props);
     return(
-        <ul id="UsersList" class="users-list">
-            {props.map(user => (<li key={user.id}>{user.userName}</li>))}
+        <ul id="UsersList" className="users-list">
+            {props.users.map(user => (<li key={user.id}>{user.userName}</li>))}
         </ul>
     );
 }
@@ -20,4 +20,12 @@ UsersList.PropTypes = {
     ).isRequired
 };
 
-export default UsersList;
+const mapStateToProps = (state) => ({
+    users: state.users
+});
+
+const mapDispatchToProps = () => ({});
+
+export default connect(mapStateToProps,mapDispatchToProps)(UsersList);
+
+// export default UsersList;

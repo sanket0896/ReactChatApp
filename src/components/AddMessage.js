@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addMessage } from "../actions/index";
 
 const AddMessage = (props) => {
-    console.log(props);
-    
     let input;
     return(
         <input id="AddMessage" 
-        class="add-message"
+        className="add-message"
         type="text"
         onKeyPress={(e) => {
             if(e.which===13){
@@ -26,4 +26,18 @@ AddMessage.PropTypes = {
     dispatch: PropTypes.func.isRequired
 };
 
-export default AddMessage;
+
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = (dispatch) => {
+    return({
+        dispatch : (message, author) => {
+            dispatch(addMessage(message,author));
+        }
+    });
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(AddMessage);
+
+
+// export default AddMessage;

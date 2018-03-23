@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const MessagesList = ({messages}) => {
+const MessagesList = (props) => {
     return(
-        <ul id="MessagesList" class="message-list">
-            {messages.map(message => (<li key={message.id}>{message.author}: {message.message}</li>))}
+        <ul id="MessagesList" className="message-list">
+            {props.messages.map(message => (<li key={message.id}>{message.author}: {message.message}</li>))}
         </ul>
     );
 }
@@ -19,4 +20,15 @@ MessagesList.PropTypes = {
     ).isRequired
 };
 
-export default MessagesList;
+
+const mapStateToProps = (state) => ({
+    messages: state.messages
+});
+
+const mapDispatchToProps = () => ({});
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(MessagesList);
+
+
+// export default MessagesList;

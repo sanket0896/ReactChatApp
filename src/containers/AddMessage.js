@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import AddMessageComponent from '../components/AddMessage';
 import { addMessage } from "../actions/index";
 
-const mapStateToProps = () => ({});
+const mapStateToProps = () => {};
 
 const mapDispatchToProps = (dispatch) => {
     return({
@@ -12,4 +12,4 @@ const mapDispatchToProps = (dispatch) => {
     });
 }
 
-export const AddMessage = connect(mapStateToProps,mapDispatchToProps)(AddMessageComponent);
+export default connect(mapStateToProps,mapDispatchToProps)(AddMessageComponent);

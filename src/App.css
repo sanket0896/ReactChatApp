@@ -2,6 +2,9 @@
   display: flex;
   width: 100%;
   height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .user-pane{
@@ -26,10 +29,12 @@
 }
 
 .message-list{
-  display: flex;
+  /* display: flex; */
+  margin: 0;
   height: 85%;
   width: 100%;
   background: #7f3;
+  overflow: auto;
 }
 
 .add-message{

@@ -6,7 +6,7 @@ const mapStateToProps = (state) => ({
     messages: state.messages
 });
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = () => {};
 
 
-export const MessagesList = connect(mapStateToProps,mapDispatchToProps)(MessagesListComponent);
+export default connect(mapStateToProps,mapDispatchToProps)(MessagesListComponent);

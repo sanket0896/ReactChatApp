@@ -1,6 +1,8 @@
 import { ADD_MESSAGE, MESSAGE_RECEIVED } from "../actions/ActionTypes";
 
-const messages = (state = [], action) => {
+let initialState = [];
+
+const messages = (state = initialState, action) => {
     switch(action.type){
         case ADD_MESSAGE:
         case MESSAGE_RECEIVED: 

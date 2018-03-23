@@ -3,11 +3,12 @@ import UsersListComponent from '../components/UsersList';
 import { showUsers } from "../actions/index";
 
 const mapStateToProps = (state) => ({
-    users:state.users
+    users:"stay"
 });
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = () => {};
 
-console.log("Hello");
+console.log("running");
 
-export const UsersList = connect(mapStateToProps,mapDispatchToProps)(UsersListComponent);
+
+export default connect(mapStateToProps,mapDispatchToProps)(UsersListComponent);
