@@ -20,6 +20,13 @@ export const addUser = (userName) => {
     });
 }
 
+export const selectUser = (key) => {
+    return({
+        type: type.SELECT_USER,
+        key: key
+    });
+}
+
 export const messageReceived = (message,author) => {
     return({
         type: type.MESSAGE_RECEIVED,

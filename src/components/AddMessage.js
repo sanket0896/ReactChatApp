@@ -11,7 +11,7 @@ const AddMessage = (props) => {
         type="text"
         onKeyPress={(e) => {
             if(e.which===13){
-                props.dispatch(input.value,"me");
+                props.dispatch(input.value,props.userName);
                 input.value=' ';
             }
         }}
@@ -27,7 +27,10 @@ AddMessage.PropTypes = {
 };
 
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => {
+    let index = state.selectedUserIndex;
+    return {userName: state.users[index].userName};
+};
 
 const mapDispatchToProps = (dispatch) => {
     return({

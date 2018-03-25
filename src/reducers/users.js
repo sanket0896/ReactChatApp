@@ -8,8 +8,9 @@ const users = (state = initialState , action) => {
         case ADD_USER:
             return(
                 newState.concat([{
-                    id: action.id,
-                    userName: action.userName
+                    id: action.userId,
+                    userName: action.userName,
+                    selected: action.selected
                 }])
             );
 

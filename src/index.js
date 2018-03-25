@@ -5,15 +5,17 @@ import { createStore } from 'redux';
 
 import './index.css';
 import App from './App';
-import chat from './reducers/index'
+import chat from './reducers/index';
+import { addUser } from './actions/index';
 import registerServiceWorker from './registerServiceWorker';
 
-const store = createStore(chat);
+const store = createStore(chat,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-store.subscribe(()=>{console.log("Store Changed",store.getState());
-});
+store.dispatch(addUser("Sanket"));
+store.dispatch(addUser("Som"));
+store.dispatch(addUser("Gulu"));
 
-store.dispatch({type: "sth", dat:1});
+// store.subscribe(()=>console.log(store.getState()));
 
 ReactDOM.render(
 <Provider store={store}>
