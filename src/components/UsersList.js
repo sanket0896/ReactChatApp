@@ -23,7 +23,8 @@ class UsersList extends Component{
     render(){
         return(
             <ul id="UsersList" className="users-list">
-                {this.props.users.map((user,key) => (<li key={user.id} onClick={(e)=>this.handleClick(e,key)} className="user-name">
+                {
+                this.props.users.map((user,key) => (<li key={user.id} id={key} onClick={(e)=>this.handleClick(e,key)} className="user-name">
                     {user.userName}
                 </li>))}
             </ul>

@@ -37,6 +37,7 @@ export const messageReceived = (message,author) => {
 }
 
 export const showUsers = (users) => {
+    
     return({
         type: type.SHOW_USERS,
         users: users

@@ -9,13 +9,13 @@ const users = (state = initialState , action) => {
             return(
                 newState.concat([{
                     id: action.userId,
-                    userName: action.userName,
-                    selected: action.selected
+                    userName: action.userName
                 }])
             );
 
         case SHOW_USERS: 
-            return(newState.users);
+            newState = [];            
+            return newState.concat(action.users);
 
         default: 
             return newState;

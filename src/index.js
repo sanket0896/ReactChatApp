@@ -1,19 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { createStore,applyMiddleware } from 'redux';
+import logger from 'redux-logger';
 
 import './index.css';
 import App from './App';
-import chat from './reducers/index';
-import { addUser } from './actions/index';
+import reducers from './reducers';
+import setupWebSocket from './client';
+import handleNewMessage from './sagas';
 import registerServiceWorker from './registerServiceWorker';
+import { addUser } from './actions';
 
-const store = createStore(chat,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+// const store = createStore(chat,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()); --use when needing redux dev tools
+const sagaMiddleware = createSagaMiddleware();
+const middleWares = applyMiddleware(logger,sagaMiddleware);
+const store = createStore(reducers,middleWares);
 
-store.dispatch(addUser("Sanket"));
-store.dispatch(addUser("Som"));
-store.dispatch(addUser("Gulu"));
+const userName = "Sanket";
+store.dispatch(addUser(userName));
+
+const socket = setupWebSocket(store.dispatch, userName);
+
+sagaMiddleware.run(handleNewMessage, {socket, userName});
 
 // store.subscribe(()=>console.log(store.getState()));
 
