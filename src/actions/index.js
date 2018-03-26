@@ -17,12 +17,33 @@ export const usernameSetSuccess = (status) => {
     });
 };
 
-export const addMessage = (message, author) => {
+export const sendMessage = (message,author) => {
+    return({
+        type: type.SEND_MESSAGE,
+        author: author,
+        message: message
+    });
+}
+
+export const addMessage = (message, author, id) => {
     return({
         type: type.ADD_MESSAGE,
-        id: nextMessageId++,
+        id: id,
         message: message,
         author: author
+    });
+}
+
+export const getMessages = () => {
+    return({
+        type: type.GET_MESSAGES
+    })
+}
+
+export const showMessages = (messages) => {
+    return({
+        type: type.SHOW_MESSAGE,
+        messages: messages
     });
 }
 
@@ -38,15 +59,6 @@ export const selectUser = (key) => {
     return({
         type: type.SELECT_USER,
         key: key
-    });
-}
-
-export const showMessage = (message,author) => {
-    return({
-        type: type.SHOW_MESSAGE,
-        id: nextMessageId++,
-        message: message,
-        author: author
     });
 }
 

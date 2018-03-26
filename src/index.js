@@ -18,9 +18,6 @@ const sagaMiddleware = createSagaMiddleware();
 const middleWares = applyMiddleware(logger,sagaMiddleware);
 const store = createStore(reducers,middleWares);
 
-const userName = "Sanket";
-store.dispatch(addUser(userName));
-
 const socket = setupWebSocket(store.dispatch);
 
 sagaMiddleware.run(handleNewMessage, {socket});

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { usernameSetSuccess, addUser, setUsername } from '../actions';
+import { usernameSetSuccess, setUsername, getMessages } from '../actions';
 
 const SetUsername = (props) => {
     let input;
@@ -13,6 +13,7 @@ const SetUsername = (props) => {
                 if(e.which === 13){
                     props.setUsername(e.target.value)
                     props.usernameSetSuccess(true);
+                    props.getMessages();
                 }
             }}
             onBlur = {(e) => {e.target.focus()}}
@@ -30,8 +31,17 @@ const mapDispatchToProps = (dispatch) => {
         },
         setUsername: (username) => {
             dispatch(setUsername(username));
+        },
+        getMessages: () => {
+            dispatch(getMessages());
         }
     });
 }
+
+SetUsername.PropTypes = {
+    usernameSetSuccess : PropTypes.func.isRequired,
+    setUsername : PropTypes.func.isRequired,
+    showMessages : PropTypes.func.isRequired 
+};
 
 export default connect(mapStateToProps,mapDispatchToProps)(SetUsername);

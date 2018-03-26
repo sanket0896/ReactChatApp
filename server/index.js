@@ -17,9 +17,10 @@ const broadcast = (sendData,ws) => {
 };
 
 let users = [];
+let messages = [];
 
 server.on('connection',(ws) => {
-    //console.log("client connected");
+    // console.log("client connected");
     let index;
     ws.on('message', (message)=> {
         let data;        
@@ -30,34 +31,56 @@ server.on('connection',(ws) => {
         }
         
         switch (data.type) {
-            case "ADD_MESSAGE":                   
-                    broadcast({
-                        type: "ADD_MESSAGE",
-                        author: data.author,
-                        message: data.message
-                    },ws);
+            case "GET_MESSAGES":
+                // console.log("userlist = ",users);
+                
+                ws.send(JSON.stringify({
+                    type: "SHOW_MESSAGE",
+                    messages: messages
+                }));
                 break;
+
+            case "ADD_MESSAGE":  
+                let pos = messages.length;
+                let newMsg = {
+                    id: pos,
+                    author: data.author,
+                    message: data.message
+                };
+                messages.push(newMsg);
+                console.log("messages = ",messages);
+                
+                ws.send(JSON.stringify({
+                    ...newMsg,
+                    author: "Me",
+                    type: "ADD_MESSAGE"
+                }));                 
+                broadcast({
+                    ...newMsg,
+                    type: "ADD_MESSAGE"
+                },ws);
+            break;
             
             case "ADD_USER":
-                    //console.log("on ADD_USER, users list is  ",users)
-                    index = users.length ? users[users.length-1].id + 1 : 0 ;
-                    let newUser = {
-                        userName: data.name,
-                        id: index
-                    };
-                    users.push(newUser);
-                    //console.log("");
-                    
-                    ws.send(JSON.stringify({
-                        type: "SHOW_USERS",
-                        users: users
-                    }));
-                    broadcast({
-                        type: "SHOW_USERS",
-                        users
-                    },ws);
-                break;
-        
+                //console.log("on ADD_USER, users list is  ",users)
+                index = users.length ? users[users.length-1].id + 1 : 0 ;
+                let newUser = {
+                    userName: data.name,
+                    id: index
+                };
+                users.push(newUser);
+                //console.log("");
+                
+                ws.send(JSON.stringify({
+                    type: "SHOW_USERS",
+                    users: users
+                }));
+                broadcast({
+                    type: "SHOW_USERS",
+                    users
+                },ws);
+            break;
+    
             default:
                 break;
         }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addMessage } from "../actions/index";
+import { sendMessage } from "../actions/index";
 
 const AddMessage = (props) => {
     let input;
@@ -11,7 +11,7 @@ const AddMessage = (props) => {
         type="text"
         onKeyPress={(e) => {
             if(e.which===13){
-                props.dispatch(input.value,"Me");
+                props.sendMessage(input.value,"Me");
                 input.value=' ';
             }
         }}
@@ -34,8 +34,8 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch) => {
     return({
-        dispatch : (message, author) => {
-            dispatch(addMessage(message,author));
+        sendMessage : (message, author) => {
+            dispatch(sendMessage(message,author));
         }
     });
 }
