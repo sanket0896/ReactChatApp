@@ -21,9 +21,9 @@ const store = createStore(reducers,middleWares);
 const userName = "Sanket";
 store.dispatch(addUser(userName));
 
-const socket = setupWebSocket(store.dispatch, userName);
+const socket = setupWebSocket(store.dispatch);
 
-sagaMiddleware.run(handleNewMessage, {socket, userName});
+sagaMiddleware.run(handleNewMessage, {socket});
 
 // store.subscribe(()=>console.log(store.getState()));
 

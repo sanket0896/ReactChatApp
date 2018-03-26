@@ -1,16 +1,9 @@
 import { ADD_MESSAGE, ADD_USER, SHOW_USERS } from '../actions/ActionTypes';
 import { addMessage, addUser, showUsers } from '../actions';
 
-const setupWebSocket = (dispatch,userName) => {
+const setupWebSocket = (dispatch) => {
 
 const client = new WebSocket("ws://localhost:8080");
-
-client.onopen = () => {
-    client.send(JSON.stringify({
-        type: ADD_USER,
-        name: userName
-    }));
-};
 
 client.onmessage = (message) => {
     let data;

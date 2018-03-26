@@ -25,7 +25,7 @@
 }
 
 .users-list > .user-name{
-  cursor: pointer;
+  cursor: default;
   margin-bottom: 1em; 
 }
 
@@ -33,9 +33,9 @@
   margin-top: 2em;
 }
 
-.users-list > .user-name:hover{
+/* .users-list > .user-name:hover{
   text-decoration: underline; 
-}
+} */
 
 .users-list > .user-name.selected{
   background: lightseagreen;

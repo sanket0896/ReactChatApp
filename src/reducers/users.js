@@ -3,22 +3,21 @@ import { ADD_USER, SHOW_USERS } from "../actions/ActionTypes";
 let initialState = [];
 
 const users = (state = initialState , action) => {
-    let newState = state;
+    let newState;
     switch(action.type){
         case ADD_USER:
-            return(
-                newState.concat([{
-                    id: action.userId,
-                    userName: action.userName
-                }])
-            );
+            newState = state.concat([{
+                id: action.userId,
+                userName: action.userName
+            }]);
+            return newState;
 
         case SHOW_USERS: 
             newState = [];            
             return newState.concat(action.users);
 
         default: 
-            return newState;
+            return state;
     }
 }
 

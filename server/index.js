@@ -19,7 +19,7 @@ const broadcast = (sendData,ws) => {
 let users = [];
 
 server.on('connection',(ws) => {
-    console.log("client connected");
+    //console.log("client connected");
     let index;
     ws.on('message', (message)=> {
         let data;        
@@ -39,14 +39,14 @@ server.on('connection',(ws) => {
                 break;
             
             case "ADD_USER":
-                    console.log("on ADD_USER, users list is  ",users)
+                    //console.log("on ADD_USER, users list is  ",users)
                     index = users.length ? users[users.length-1].id + 1 : 0 ;
                     let newUser = {
                         userName: data.name,
                         id: index
                     };
                     users.push(newUser);
-                    console.log("");
+                    //console.log("");
                     
                     ws.send(JSON.stringify({
                         type: "SHOW_USERS",
@@ -64,10 +64,10 @@ server.on('connection',(ws) => {
     });
 
     ws.on('close',()=>{
-        console.log("before splice, users = ",users,"---> index = ", index);        
+        // console.log("before splice, users = ",users,"---> index = ", index);        
         let closedUserIndex = users.findIndex((user) => (index===user.id));
         users.splice(closedUserIndex,1);
-        console.log("on close, user list = ", users)
+        // console.log("on close, user list = ", users)
         broadcast({
             type: "SHOW_USERS",
             users: users

@@ -3,6 +3,20 @@ import * as type from './ActionTypes';
 let nextMessageId = 0;
 let nextUserId = 0;
 
+export const setUsername = (userName) => {
+    return({
+        type: type.SET_USERNAME,
+        name: userName
+    });
+}
+
+export const usernameSetSuccess = (status) => {
+    return({
+        type: type.USERNAME_SET_SUCCESS,
+        status: status
+    });
+};
+
 export const addMessage = (message, author) => {
     return({
         type: type.ADD_MESSAGE,
@@ -27,9 +41,9 @@ export const selectUser = (key) => {
     });
 }
 
-export const messageReceived = (message,author) => {
+export const showMessage = (message,author) => {
     return({
-        type: type.MESSAGE_RECEIVED,
+        type: type.SHOW_MESSAGE,
         id: nextMessageId++,
         message: message,
         author: author

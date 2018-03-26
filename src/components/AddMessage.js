@@ -6,7 +6,7 @@ import { addMessage } from "../actions/index";
 const AddMessage = (props) => {
     let input;
     return(
-        <input id="AddMessage" 
+        <input id="addMessage" 
         className="add-message"
         type="text"
         onKeyPress={(e) => {
@@ -15,10 +15,9 @@ const AddMessage = (props) => {
                 input.value=' ';
             }
         }}
-        ref = {(node)=>{input = node}}>
-
+        onBlur = {(e) => {e.target.focus()}}
+        ref = {(node)=>{input = node}} autoFocus />
         
-        </input>
     );
 }
 
