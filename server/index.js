@@ -1,8 +1,6 @@
 const WebSocket = require('ws');
 
-const server = new WebSocket.Server({ port : 8080 });
-
-    console.log("server created at ",server.address());
+const server = new WebSocket.Server({ host : "https://chat-app-server-0001.herokuapp.com", port : 8080 });
 
 
 const broadcast = (sendData,ws) => {

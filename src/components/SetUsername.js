@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { usernameSetSuccess, addUser, setUsername } from '../actions';
+import { usernameSetSuccess, setUsername } from '../actions';
 
 const SetUsername = (props) => {
     let input;
@@ -20,6 +20,11 @@ const SetUsername = (props) => {
         </div>
     );
 }
+
+SetUsername.PropTypes = {
+    usernameSetSuccess: PropTypes.func.isRequired,
+    setUsername: PropTypes.func.isRequired
+};
 
 const mapStateToProps = () => ({});
 

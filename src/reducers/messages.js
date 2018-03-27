@@ -3,10 +3,9 @@ import { ADD_MESSAGE, SHOW_MESSAGE } from "../actions/ActionTypes";
 let initialState = [];
 
 const messages = (state = initialState, action) => {
-    let newState;
     switch(action.type){
         case ADD_MESSAGE: 
-            newState = state.concat([{
+            let newState = state.concat([{
                 id: action.id,
                 message: action.message,
                 author: action.author
@@ -14,7 +13,7 @@ const messages = (state = initialState, action) => {
             return newState;
 
         case SHOW_MESSAGE:
-            let newState = [];
+            newState = [];
             return newState.concat(action.messages);
 
         default: 

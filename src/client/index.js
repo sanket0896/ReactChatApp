@@ -3,11 +3,11 @@ import { addMessage, addUser, showUsers } from '../actions';
 
 const setupWebSocket = (dispatch) => {
 
-const client = new WebSocket("ws://localhost:8080");
+const client = new WebSocket("ws://chat-app-server-0001.herokuapp.com:8080");
 
 client.onmessage = (message) => {
     let data;
-    // console.log(message);    
+    // console.log("message",client.url);    
     try{
         data = JSON.parse(message.data); 
     }catch(e){
