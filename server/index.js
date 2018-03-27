@@ -1,6 +1,9 @@
 const WebSocket = require('ws');
 
-const server = new WebSocket.Server({port:8080});
+const server = new WebSocket.Server({ port : 8080 });
+
+    console.log("server created at ",server.address());
+
 
 const broadcast = (sendData,ws) => {
     // console.log(" broadcast");
@@ -19,7 +22,7 @@ const broadcast = (sendData,ws) => {
 let users = [];
 
 server.on('connection',(ws) => {
-    //console.log("client connected");
+    // console.log("client connected",server.address());
     let index;
     ws.on('message', (message)=> {
         let data;        
