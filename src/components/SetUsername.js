@@ -11,12 +11,17 @@ const SetUsername = (props) => {
             <input type="text" name="name" id="username"
             onKeyPress={(e)=>{
                 if(e.which === 13){
-                    props.setUsername(e.target.value)
-                    props.usernameSetSuccess(true);
+                    if(input.value.replace(/^\s*$/,"")!=="") //checking for inputs containing only white spaces
+                    {
+                        props.setUsername(e.target.value);
+                        props.usernameSetSuccess(true);
+                    }   
+                    input.value = '';                 
                 }
             }}
             onBlur = {(e) => {e.target.focus()}}
-            autoFocus />
+            autoFocus 
+            ref = {(node) => {input = node}}/>
         </div>
     );
 }
