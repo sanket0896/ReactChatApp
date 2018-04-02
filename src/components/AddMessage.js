@@ -11,7 +11,7 @@ const AddMessage = (props) => {
         type="text"
         onKeyPress={(e) => {
             if(e.which===13){
-                props.dispatch(input.value,"Me");
+                props.addMessage(input.value,"Me");
                 input.value=' ';
             }
         }}
@@ -34,7 +34,7 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch) => {
     return({
-        dispatch : (message, author) => {
+        addMessage : (message, author) => {
             dispatch(addMessage(message,author));
         }
     });

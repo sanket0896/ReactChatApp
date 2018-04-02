@@ -48,13 +48,16 @@
   width: 85%;
 }
 
-.message-list{
+.msg-container{
   /* display: flex; */
   margin: 0;
   height: 85%;
   width: 100%;
   background: #7f3;
   overflow: auto;
+}
+
+.message-list{
   list-style: none;
 }
 

@@ -2,12 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const MessagesList = (props) => {
-    return(
-        <ul id="MessagesList" className="message-list">
-            {props.messages.map(message => (<li key={message.id}>{message.author}: {message.message}</li>))}
-        </ul>
-    );
+class MessagesList extends React.Component {
+
+    scrollToBottom = () => {
+        this.dummy.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+    }
+
+    componentDidMount = () => {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate = () => {
+        this.scrollToBottom();
+    }
+    render(){
+        return(
+            <div className="msg-container">
+                <ul id="MessagesList" className="message-list">
+                    {this.props.messages.map(message => (<li key={message.id}>{message.author}: {message.message}</li>))}
+                </ul>
+                <div className="dummy-div" ref={(node)=>{this.dummy=node}}></div> 
+            </div>
+        );
+    }
 }
 
 MessagesList.PropTypes = {

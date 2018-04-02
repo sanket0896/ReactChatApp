@@ -3,7 +3,7 @@ import * as type from './ActionTypes';
 let nextMessageId = 0;
 let nextUserId = 0;
 
-export const setUsername = (userName) => {
+export const setUsername = (userName) => {    
     return({
         type: type.SET_USERNAME,
         name: userName
