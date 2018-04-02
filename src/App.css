@@ -51,8 +51,8 @@
 .msg-container{
   /* display: flex; */
   margin: 0;
-  height: 85%;
-  width: 100%;
+  height: 90%;
+  width: 102%;
   background: #7f3;
   overflow: auto;
 }
@@ -63,7 +63,7 @@
 
 .add-message{
   display: flex;
-  height: 15%;
+  height: 10%;
   width: 100%;
   background: #a41;
 }
