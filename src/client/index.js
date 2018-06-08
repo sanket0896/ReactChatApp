@@ -7,8 +7,9 @@ const setupWebSocket = (store) => {
     let dispatch = store.dispatch;
 
     // let endPoint = "http://smchats.herokuapp.com:80";
+    let localhost = "localhost:5000";
 
-    const client = sioc({path: "/socket.io"});
+    const client = sioc(localhost,{path: "/socket.io"});
 
     client.on(SHOW_USERS, (data) => {
         data = JSON.parse(data);

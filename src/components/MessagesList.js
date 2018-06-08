@@ -8,6 +8,10 @@ class MessagesList extends React.Component {
         this.dummy.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
     }
 
+    setLiClassName = (author) => (
+        author === "Me" ? "me" : "not-me"
+    )
+
     componentDidMount = () => {
         this.scrollToBottom();
     }
@@ -19,7 +23,7 @@ class MessagesList extends React.Component {
         return(
             <div className="msg-container">
                 <ul id="MessagesList" className="message-list">
-                    {this.props.messages.map(message => (<li key={message.id}>{message.author}: {message.message}</li>))}
+                    {this.props.messages.map(message => (<li key={message.id} className={this.setLiClassName(message.author)} >{message.author}: {message.message}</li>))}
                 </ul>
                 <div className="dummy-div" ref={(node)=>{this.dummy=node}}></div> 
             </div>
