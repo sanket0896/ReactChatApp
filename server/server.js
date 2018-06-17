@@ -8,15 +8,21 @@ const sio = socketIO(server);
 
 const port = process.env.PORT || 5000;
 let users = [];
+let connetedUsers = {};
 
 app.use(express.static('build'));
 
 sio.on('connection',(socket) => {
 
-    let index;
+    
+    socket.on('ADD_USER', (data , sendStatus) => {
 
-    socket.on('ADD_USER', (data) => {
-
+        //to avoid undefined function call
+        if(sendStatus === undefined){
+            sendStatus = (s)=>{};
+        }
+        
+        // to parse data in correct form
         let receivedData;
         try{
             receivedData = JSON.parse(data);
@@ -24,13 +30,24 @@ sio.on('connection',(socket) => {
             receivedData = data;
         }
         
-        index = users.length ? users[users.length-1].id + 1 : 0 ;
+        // create new user with all the data
         let newUser = {
-            userName: receivedData.name,
-            id: index
+            userName: receivedData.name.toLowerCase(),
+            id: socket.id
         };
-        users.push(newUser);
+
+        // check if username already exists 
+        if (connetedUsers[newUser.userName]) {
+            sendStatus(false);
+            return;            
+        }
+        else{
+            connetedUsers[newUser.userName] = socket;
+            users.push(newUser);
+            sendStatus(true);
+        }
         
+        // send updated user list to everyone
         sio.emit('SHOW_USERS',JSON.stringify({users}));
     });
 
@@ -39,8 +56,13 @@ sio.on('connection',(socket) => {
     });
 
     socket.on('disconnect', () => {
-        let closedUserIndex = users.findIndex((user) => (index===user.id));
+        let closedUserIndex = users.findIndex((user) => (user.id===socket.id));
+        
+        delete connetedUsers[users[closedUserIndex].userName];
         users.splice(closedUserIndex,1);
+        // users[closedUserIndex].id=null;
+        
+        
         socket.broadcast.emit("SHOW_USERS",JSON.stringify({users}));
     });
 });

@@ -10,7 +10,9 @@ export const setUsername = (userName) => {
     });
 }
 
-export const usernameSetSuccess = (status) => {
+export const usernameSetSuccess = (status) => { 
+    console.log("in action usernamesetsuccess--> action type is ",status);
+   
     return({
         type: type.USERNAME_SET_SUCCESS,
         status: status

@@ -22,7 +22,7 @@ const store = createStore(reducers,middleWares);
 
 const socket = setupWebSocket(store);
 
-sagaMiddleware.run(handleNewMessage, {socket});
+sagaMiddleware.run(handleNewMessage, {socket}, store.dispatch);
 
 // store.subscribe(()=>console.log(store.getState()));
 
