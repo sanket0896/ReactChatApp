@@ -72,3 +72,8 @@
   width: 100%;
   background: #a41;
 }
+
+.highlighted{
+  text-transform: uppercase;
+  background: #fa00e5 !important;
+}

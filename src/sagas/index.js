@@ -7,7 +7,8 @@ const handleNewMessage = function* (params,dispatch) {
 
     yield takeEvery(SET_USERNAME, (action)=>{ 
         let { type , ...payload } = action;
-        username = payload.name;        
+        username = payload.userName;        
+                
         params.socket.emit(ADD_USER, JSON.stringify(payload), setUsernameStatus);
     });
 

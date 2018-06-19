@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { selectChat, unhighlightUser } from '../actions';
+import { selectChat } from '../actions';
 
 
 // const UsersList = (props) => {
@@ -12,33 +12,31 @@ class UsersList extends Component{
         // document.getElementsByClassName("user-name")[this.props.selectedUserIndex].classList.add("selected");
     }
 
-    addClasses = (isHighlighted) => {
-        let classes = ["user-name"];
-
+    addClasses = (classes,isHighlighted) => {
+        let newClasses = classes;
+        
+        
         if(isHighlighted){
-            classes.push("highlighted");
+            newClasses.push("highlighted");
         }
 
-        return classes.join(" ");
+        return newClasses.join(" ");
     }
 
     handleClick = (e,userName,isHighlighted) => {
         if(document.getElementsByClassName("selected").length){
             document.querySelector(".selected").classList.remove("selected");
         }
-        e.target.classList.add("selected");
-        this.props.selectChat(userName);      
-        if(isHighlighted){
-            this.props.unhighlightUser(userName);
-        }         
+        e.target.className = this.addClasses(["user-name","selected"]);
+        this.props.selectChat(userName);
     }
 
     render(){
         return(
             <ul id="UsersList" className="users-list">
                 {
-                this.props.users.map((user,key) => (<li key={user.id} id={key} username={user.userName} onClick={(e)=>this.handleClick(e,user.userName,user.isHighlighted)} className={this.addClasses(user.isHighlighted)}>
-                    {user.userName}
+                this.props.users.map((user,key) => (<li key={user.id} id={key} username={user.userName} onClick={(e)=>this.handleClick(e,user.userName,user.isHighlighted)} className={this.addClasses(["user-name"],user.isHighlighted)}>
+                    {user.name}: @{user.userName} 
                 </li>))}
             </ul>
         );
@@ -61,9 +59,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     selectChat: (userName) => {
         dispatch(selectChat(userName));
-    },
-    unhighlightUser: (userName) => {
-        dispatch(unhighlightUser(userName));
     }
 });
 

@@ -3,10 +3,12 @@ import * as type from './ActionTypes';
 let nextMessageId = 0;
 let nextUserId = 0;
 
-export const setUsername = (userName) => {    
+export const setUsername = (name,userName) => {  
+      
     return({
         type: type.SET_USERNAME,
-        name: userName
+        name: name,
+        userName: userName
     });
 }
 
@@ -71,13 +73,3 @@ export const removeUser = (user) => {
         user: user
     });
 }
-
-export const unhighlightUser = (userName) => {
-    console.log("here");
-    
-    return({
-        type: type.UNHIGHLIGHT_USER,
-        userName: userName
-    });
-}
-

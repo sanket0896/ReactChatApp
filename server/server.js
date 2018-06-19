@@ -29,12 +29,14 @@ sio.on('connection',(socket) => {
         }catch(e){
             receivedData = data;
         }
+        console.log("received data = ",receivedData);
         
-        if(receivedData.name!==null) //used to ignore client which is reconnecting but without name
+        if(receivedData.userName!==null) //used to ignore client which is reconnecting but without name
         {
             // create new user with all the data
             let newUser = {
-                userName: receivedData.name.toLowerCase(),
+                name: receivedData.name,
+                userName: receivedData.userName.toLowerCase(),
                 id: socket.id
             };
 

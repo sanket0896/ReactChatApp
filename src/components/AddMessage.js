@@ -12,11 +12,11 @@ const AddMessage = (props) => {
         onKeyPress={(e) => {
             if(e.which===13){
                 
-            if(input.value.replace(/^\s*$/,"")!=="") //checking for inputs containing only white spaces
+            if(e.target.value.replace(/^\s*$/,"")!=="") //checking for inputs containing only white spaces
             {
-                props.addMessage(input.value, "Me", props.selectedChat);
+                props.addMessage(e.target.value, "Me", props.selectedChat);
             }
-            input.value='';
+            e.target.value='';
             }
         }}
         onBlur = {(e) => {e.target.focus()}}

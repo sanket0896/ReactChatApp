@@ -1,4 +1,4 @@
-import { ADD_USER, SHOW_USERS, HIGHLIGHT_USER, REMOVE_USER, UNHIGHLIGHT_USER } from "../actions/ActionTypes";
+import { ADD_USER, SHOW_USERS, HIGHLIGHT_USER, REMOVE_USER } from "../actions/ActionTypes";
 
 let initialState = [];
 
@@ -36,20 +36,6 @@ const users = (state = initialState , action) => {
                 return user;
             });            
             return newState;
-
-        case UNHIGHLIGHT_USER:
-    
-        console.log("UNHIGHLIGHT_USER CALL , @action= ",action);
-            newState = [...state];
-            newState.forEach((user)=>{
-                if(user.userName===action.userName)
-                    user.isHighlighted = false;
-                return user;
-            });
-            console.log("@newState = ",newState);
-            
-            return newState;
-
 
         default: 
             return state;
