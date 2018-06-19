@@ -10,6 +10,7 @@ const handleNewMessage = function* (params,dispatch) {
         username = payload.name;        
         params.socket.emit(ADD_USER, JSON.stringify(payload), setUsernameStatus);
     });
+
     yield takeEvery(ADD_MESSAGE, (action) => {
         if(action.author==="Me"){
             let { type , ...payload } = action;

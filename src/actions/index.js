@@ -10,18 +10,17 @@ export const setUsername = (userName) => {
     });
 }
 
-export const usernameSetSuccess = (status) => { 
-    console.log("in action usernamesetsuccess--> action type is ",status);
-   
+export const usernameSetSuccess = (status) => {    
     return({
         type: type.USERNAME_SET_SUCCESS,
         status: status
     });
 };
 
-export const addMessage = (message, author) => {
+export const addMessage = (message, author, target) => {
     return({
         type: type.ADD_MESSAGE,
+        target: target,
         id: nextMessageId++,
         message: message,
         author: author
@@ -36,10 +35,10 @@ export const addUser = (userName) => {
     });
 }
 
-export const selectUser = (key) => {
+export const selectChat = (userName) => {
     return({
-        type: type.SELECT_USER,
-        key: key
+        type: type.SELECT_CHAT,
+        userName: userName
     });
 }
 
@@ -52,10 +51,33 @@ export const showMessage = (message,author) => {
     });
 }
 
-export const showUsers = (users) => {
-    
+export const showUsers = (users) => {   
     return({
         type: type.SHOW_USERS,
         users: users
     });
 }
+
+export const highlightUser = (userName) => {
+    return({
+        type: type.HIGHLIGHT_USER,
+        userName: userName
+    });
+}
+
+export const removeUser = (user) => {
+    return({
+        type: type.REMOVE_USER,
+        user: user
+    });
+}
+
+export const unhighlightUser = (userName) => {
+    console.log("here");
+    
+    return({
+        type: type.UNHIGHLIGHT_USER,
+        userName: userName
+    });
+}
+

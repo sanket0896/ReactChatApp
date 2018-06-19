@@ -1,6 +1,6 @@
 import { SET_USERNAME } from "../actions/ActionTypes";
 
-let initialState = "no name";
+let initialState = null;
 
 const handleUSernameScreen = (state = initialState , action) => {
     let newState;

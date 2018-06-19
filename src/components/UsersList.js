@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { selectUser } from '../actions';
+import { selectChat, unhighlightUser } from '../actions';
 
 
 // const UsersList = (props) => {
@@ -12,19 +12,32 @@ class UsersList extends Component{
         // document.getElementsByClassName("user-name")[this.props.selectedUserIndex].classList.add("selected");
     }
 
-    handleClick = (e,key) => {
+    addClasses = (isHighlighted) => {
+        let classes = ["user-name"];
+
+        if(isHighlighted){
+            classes.push("highlighted");
+        }
+
+        return classes.join(" ");
+    }
+
+    handleClick = (e,userName,isHighlighted) => {
         if(document.getElementsByClassName("selected").length){
             document.querySelector(".selected").classList.remove("selected");
         }
         e.target.classList.add("selected");
-        this.props.dispatch(key);               
+        this.props.selectChat(userName);      
+        if(isHighlighted){
+            this.props.unhighlightUser(userName);
+        }         
     }
 
     render(){
         return(
             <ul id="UsersList" className="users-list">
                 {
-                this.props.users.map((user,key) => (<li key={user.id} id={key} /*onClick={(e)=>this.handleClick(e,key)}*/ className="user-name">
+                this.props.users.map((user,key) => (<li key={user.id} id={key} username={user.userName} onClick={(e)=>this.handleClick(e,user.userName,user.isHighlighted)} className={this.addClasses(user.isHighlighted)}>
                     {user.userName}
                 </li>))}
             </ul>
@@ -42,13 +55,15 @@ UsersList.PropTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    users: state.users,
-    selectedUserIndex: state.selectedUserIndex
+    users: state.users
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatch: (key) => {
-        dispatch(selectUser(key));
+    selectChat: (userName) => {
+        dispatch(selectChat(userName));
+    },
+    unhighlightUser: (userName) => {
+        dispatch(unhighlightUser(userName));
     }
 });
 
