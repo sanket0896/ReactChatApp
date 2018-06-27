@@ -8,7 +8,7 @@ const sio = socketIO(server);
 
 const port = process.env.PORT || 5000;
 let users = [];
-let connetedUsers = {};
+let connectedUsers = {};
 
 app.use(express.static('build'));
 
@@ -41,12 +41,12 @@ sio.on('connection',(socket) => {
             };
 
             // check if username already exists 
-            if (connetedUsers[newUser.userName]) {
+            if (connectedUsers[newUser.userName]) {
                 sendStatus(false);
                 return;            
             }
             else{
-                connetedUsers[newUser.userName] = socket;
+                connectedUsers[newUser.userName] = socket;
                 sendStatus(true);
                 //send the sender client list of all users except itself.
                 socket.emit('SHOW_USERS',JSON.stringify({users}));console.log("sent",users.length," users to",socket.id);
@@ -68,7 +68,9 @@ sio.on('connection',(socket) => {
             receivedData = data;
         }
         
-        socket.to(connetedUsers[receivedData.target].id).emit('ADD_MESSAGE',data);
+        if (receivedData.target) {
+            socket.to(connectedUsers[receivedData.target].id).emit('ADD_MESSAGE',data);
+        }
     });
 
     socket.on('disconnect', () => {
@@ -80,14 +82,15 @@ sio.on('connection',(socket) => {
             }
         });
         
-        if(connetedUsers[closedUserName])
-            delete connetedUsers[closedUserName];
+        if(connectedUsers[closedUserName]){
+            delete connectedUsers[closedUserName];
         
             socket.broadcast.emit("REMOVE_USER",JSON.stringify(users[closedUserIndex]));
             console.log("remove",users[closedUserIndex]," from all");
             
         
-        users.splice(closedUserIndex,1);
+            users.splice(closedUserIndex,1);
+        }
     });
 });
 

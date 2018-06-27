@@ -31,7 +31,7 @@ const setupWebSocket = (store) => {
     });
 
     client.on('reconnect', () => {
-        client.emit(ADD_USER, {name: store.getState().myName});
+        client.emit(ADD_USER, store.getState().myName);
     });
 
     return client;
