@@ -3,23 +3,26 @@ import * as type from './ActionTypes';
 let nextMessageId = 0;
 let nextUserId = 0;
 
-export const setUsername = (userName) => {    
+export const setUsername = (name,userName) => {  
+      
     return({
         type: type.SET_USERNAME,
-        name: userName
+        name: name,
+        userName: userName
     });
 }
 
-export const usernameSetSuccess = (status) => {
+export const usernameSetSuccess = (status) => {    
     return({
         type: type.USERNAME_SET_SUCCESS,
         status: status
     });
 };
 
-export const addMessage = (message, author) => {
+export const addMessage = (message, author, target) => {
     return({
         type: type.ADD_MESSAGE,
+        target: target,
         id: nextMessageId++,
         message: message,
         author: author
@@ -34,10 +37,10 @@ export const addUser = (userName) => {
     });
 }
 
-export const selectUser = (key) => {
+export const selectChat = (userName) => {
     return({
-        type: type.SELECT_USER,
-        key: key
+        type: type.SELECT_CHAT,
+        userName: userName
     });
 }
 
@@ -50,10 +53,23 @@ export const showMessage = (message,author) => {
     });
 }
 
-export const showUsers = (users) => {
-    
+export const showUsers = (users) => {   
     return({
         type: type.SHOW_USERS,
         users: users
+    });
+}
+
+export const highlightUser = (userName) => {
+    return({
+        type: type.HIGHLIGHT_USER,
+        userName: userName
+    });
+}
+
+export const removeUser = (user) => {
+    return({
+        type: type.REMOVE_USER,
+        user: user
     });
 }

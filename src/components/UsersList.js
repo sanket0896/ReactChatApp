@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { selectUser } from '../actions';
+import { selectChat } from '../actions';
 
 
 // const UsersList = (props) => {
@@ -12,20 +12,31 @@ class UsersList extends Component{
         // document.getElementsByClassName("user-name")[this.props.selectedUserIndex].classList.add("selected");
     }
 
-    handleClick = (e,key) => {
+    addClasses = (classes,isHighlighted) => {
+        let newClasses = classes;
+        
+        
+        if(isHighlighted){
+            newClasses.push("highlighted");
+        }
+
+        return newClasses.join(" ");
+    }
+
+    handleClick = (e,userName,isHighlighted) => {
         if(document.getElementsByClassName("selected").length){
             document.querySelector(".selected").classList.remove("selected");
         }
-        e.target.classList.add("selected");
-        this.props.dispatch(key);               
+        e.target.className = this.addClasses(["user-name","selected"]);
+        this.props.selectChat(userName);
     }
 
     render(){
         return(
             <ul id="UsersList" className="users-list">
                 {
-                this.props.users.map((user,key) => (<li key={user.id} id={key} /*onClick={(e)=>this.handleClick(e,key)}*/ className="user-name">
-                    {user.userName}
+                this.props.users.map((user,key) => (<li key={user.id} id={key} username={user.userName} onClick={(e)=>this.handleClick(e,user.userName,user.isHighlighted)} className={this.addClasses(["user-name"],user.isHighlighted)}>
+                    {user.name}: @{user.userName} 
                 </li>))}
             </ul>
         );
@@ -42,13 +53,12 @@ UsersList.PropTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    users: state.users,
-    selectedUserIndex: state.selectedUserIndex
+    users: state.users
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    dispatch: (key) => {
-        dispatch(selectUser(key));
+    selectChat: (userName) => {
+        dispatch(selectChat(userName));
     }
 });
 

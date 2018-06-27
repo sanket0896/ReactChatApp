@@ -1,45 +1,74 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { usernameSetSuccess, setUsername } from '../actions';
+import { setUsername } from '../actions';
 
 const SetUsername = (props) => {
-    let input;
+    let name=null,username = null;
+
+    const handleKeyPress = (e) => {
+        if(e.which === 13){
+            if(e.target.value.replace(/^\s*$/,"")!=="") //checking for inputs containing only white spaces
+            { 
+                if (e.target.name === 'name') {
+                    
+                    name = e.target.value;
+                    document.getElementById("name-prompt-status").innerHTML = "";
+                    if(username!==null){
+                        props.setUsername(name,username);
+                    }
+                    else{
+                        document.getElementById("username").focus();
+                    }
+                }
+                else if (e.target.name === 'username') {
+                    username = e.target.value;
+                    if(name===null){
+                        document.getElementById("name-prompt-status").innerHTML = "Please enter your name.";
+                        document.getElementById("name").focus();
+                        return;
+                    }
+                    else{
+                        props.setUsername(name,username);
+                        if(props.isUsernameAvailable===false){
+                            e.target.value = ''; 
+                        }
+                    }
+                }                
+            }                   
+        }
+    }
     return (
         <div id="setUsernameScreen" className="set-username-screen">
-            <h1 className="set-usrname-prompt">Hi there! Please enter your name.</h1>
-            <input type="text" name="name" id="username"
-            onKeyPress={(e)=>{
-                if(e.which === 13){
-                    if(input.value.replace(/^\s*$/,"")!=="") //checking for inputs containing only white spaces
-                    {
-                        props.setUsername(e.target.value);
-                        props.usernameSetSuccess(true);
-                    }   
-                    input.value = '';                 
-                }
-            }}
-            onBlur = {(e) => {e.target.focus()}}
-            autoFocus 
-            ref = {(node) => {input = node}}/>
+
+            <h2 className="set-details-prompt">Hi there! Please enter your Name.</h2>
+            <input type="text" name="name" id="name"
+            onKeyPress={(e)=>{handleKeyPress(e)}} 
+            onBlur={(e)=>{
+                e.which = 13; //used to simulate Enter key press, so that corresponding function can be reused here
+                handleKeyPress(e);}} autoFocus required />
+            <span className="error" id="name-prompt-status"></span>
+
+            <h2 className="set-details-prompt">Hi there! Please enter your Username.</h2>
+            <input type="text" name="username" id="username"
+            onKeyPress={(e)=>{handleKeyPress(e)}} required />
+            <span className="error" id="userName-prompt-status">{props.isUsernameAvailable===false?"This username is taken!":""}</span>
         </div>
     );
 }
 
 SetUsername.PropTypes = {
-    usernameSetSuccess: PropTypes.func.isRequired,
     setUsername: PropTypes.func.isRequired
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+    isUsernameAvailable: state.usernameSetSuccess
+});
 
 const mapDispatchToProps = (dispatch) => {
     return ({
-        usernameSetSuccess : () => {
-            dispatch(usernameSetSuccess(true));
-        },
-        setUsername: (username) => {
-            dispatch(setUsername(username));
+        setUsername: (name,username) => {
+            dispatch(setUsername(name,username));
         }
     });
 }

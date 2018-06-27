@@ -1,3 +1,8 @@
+.error{
+  color:  red;
+  margin-left: 2em;
+}
+
 #container{
   display: flex;
   width: 100%;
@@ -66,4 +71,9 @@
   height: 10%;
   width: 100%;
   background: #a41;
+}
+
+.highlighted{
+  text-transform: uppercase;
+  background: #fa00e5 !important;
 }

@@ -11,12 +11,12 @@ const AddMessage = (props) => {
         type="text"
         onKeyPress={(e) => {
             if(e.which===13){
-
-            if(input.value.replace(/^\s*$/,"")!=="") //checking for inputs containing only white spaces
+                
+            if(e.target.value.replace(/^\s*$/,"")!=="") //checking for inputs containing only white spaces
             {
-                props.addMessage(input.value,"Me");
+                props.addMessage(e.target.value, "Me", props.selectedChat);
             }
-            input.value='';
+            e.target.value='';
             }
         }}
         onBlur = {(e) => {e.target.focus()}}
@@ -26,20 +26,21 @@ const AddMessage = (props) => {
 }
 
 AddMessage.PropTypes = {
-    dispatch: PropTypes.func.isRequired
+    addMessage: PropTypes.func.isRequired,
+    selectedChat: PropTypes.string.isRequired
 };
 
 
-const mapStateToProps = () => {
-    // let index = state.selectedUserIndex;
-    // return {userName: state.users[index].userName};
-    return {};
+const mapStateToProps = (state) => {
+    return {
+        selectedChat: state.selectedChat
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return({
-        addMessage : (message, author) => {
-            dispatch(addMessage(message,author));
+        addMessage : (message, author,target) => {
+            dispatch(addMessage(message,author,target));
         }
     });
 }
