@@ -1,4 +1,5 @@
 import * as type from './ActionTypes';
+import readReceipt from '../utils/ReadReceiptStatus';
 
 let nextMessageId = 0;
 let nextUserId = 0;
@@ -19,13 +20,23 @@ export const usernameSetSuccess = (status) => {
     });
 };
 
-export const addMessage = (message, author, target) => {
+export const addMessage = (message, author, target, id) => {
+    let newId;
+    let status;
+    if (id === undefined) {
+        newId = nextMessageId++;
+        status = readReceipt.CREATED;
+    }else{
+        newId = id;
+        status = readReceipt.NONE;
+    }
     return({
         type: type.ADD_MESSAGE,
         target: target,
-        id: nextMessageId++,
+        id: newId,
         message: message,
-        author: author
+        author: author,
+        status: status
     });
 }
 
@@ -71,5 +82,28 @@ export const removeUser = (user) => {
     return({
         type: type.REMOVE_USER,
         user: user
+    });
+}
+
+export const msgUploaded = ( chattingWith, localMsgId, serverMsgId) => {
+    return({
+        type: type.MSG_UPLOADED,
+        chattingWith: chattingWith,
+        localMsgId: localMsgId,
+        serverMsgId: serverMsgId
+    });
+}
+
+export const msgReceived = (msgId) => {
+    return({
+        type: type.MSG_RECEIVED,
+        msgId: msgId
+    });
+}
+
+export const msgRead = (msgId) => {
+    return({
+        type: type.MSG_READ,
+        msgId: msgId
     });
 }

@@ -35,7 +35,12 @@ class MessagesList extends React.Component {
         return(
             <div className="msg-container">
                 <ul id="MessagesList" className="message-list">
-                    {this.getCurrentChatHistory(this.props.selectedChat,this.props.chatHistory).map(message => (<li key={message.id} className={this.setLiClassName(message.author)} >{message.author}: {message.message}</li>))}
+                    {
+                        this.getCurrentChatHistory(this.props.selectedChat,this.props.chatHistory)
+                        .map(message => (<li key={message.id} className={this.setLiClassName(message.author)} >
+                        {message.author}: {message.message}
+                        </li>))
+                    }
                 </ul>
                 <div className="dummy-div" ref={(node)=>{this.dummy=node}}></div> 
             </div>

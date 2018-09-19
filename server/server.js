@@ -10,6 +10,7 @@ const sio = socketIO(server);
 const port = process.env.PORT || 5000;
 let users = [];
 let connectedUsers = {};
+let allMessages = [];
 
 app.use(express.static('build'));
 
@@ -59,7 +60,7 @@ sio.on('connection',(socket) => {
         }
     });
 
-    socket.on('ADD_MESSAGE', (data) => {
+    socket.on('ADD_MESSAGE', (data, sendUploadedReceipt) => {
 
         // to parse data in correct form
         let receivedData;
@@ -70,9 +71,19 @@ sio.on('connection',(socket) => {
         }
         
         if (receivedData.target) {
-            socket.to(connectedUsers[receivedData.target].id).emit('ADD_MESSAGE',data);
+            let receivedMsgId = receivedData.id;
+            let newMessage = { ...receivedData, id : uniqId() };
+            allMessages.push(newMessage);
+            sendUploadedReceipt( receivedData.target, receivedMsgId, newMessage.id );
+            socket.to(connectedUsers[receivedData.target].id).emit('ADD_MESSAGE',JSON.stringify(newMessage));
         }
     });
+
+    // complete event listener for msg received
+    socket.on('MSG_RECEIVED', () => {});
+
+    // complete event lustener for msg read
+    socket.on('MSG_READ', () => {});
 
     socket.on('disconnect', () => {
         let closedUserName;

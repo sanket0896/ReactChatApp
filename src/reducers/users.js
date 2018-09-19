@@ -4,7 +4,6 @@ let initialState = [];
 
 const users = (state = initialState , action) => {
     let newState;
-    console.log("------------Inside users reducer--------",action);
     
     switch(action.type){
         case ADD_USER:
