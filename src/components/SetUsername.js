@@ -6,8 +6,11 @@ import { setUsername } from '../actions';
 const SetUsername = (props) => {
     let name=null,username = null;
 
-    const handleKeyPress = (e) => {
-        if(e.which === 13){
+    /**
+     * isEnterKeySimulated param is used to simulate enter key press so that this function can be reused
+     */
+    const handleKeyPress = (e,isEnterKeySimulated) => {
+        if(e.which === 13 || isEnterKeySimulated === true){
             if(e.target.value.replace(/^\s*$/,"")!=="") //checking for inputs containing only white spaces
             { 
                 if (e.target.name === 'name') {
@@ -45,8 +48,7 @@ const SetUsername = (props) => {
             <input type="text" name="name" id="name"
             onKeyPress={(e)=>{handleKeyPress(e)}} 
             onBlur={(e)=>{
-                e.which = 13; //used to simulate Enter key press, so that corresponding function can be reused here
-                handleKeyPress(e);}} autoFocus required />
+                handleKeyPress(e,true);}} autoFocus required />
             <span className="error" id="name-prompt-status"></span>
 
             <h2 className="set-details-prompt">Hi there! Please enter your Username.</h2>

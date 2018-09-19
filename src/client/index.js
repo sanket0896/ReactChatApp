@@ -1,5 +1,5 @@
 import sioc from 'socket.io-client';
-import { ADD_MESSAGE, SHOW_USERS, ADD_USER, REMOVE_USER, SEND_MSG_RECEIVED, MSG_RECEIVED } from '../actions/ActionTypes';
+import { ADD_MESSAGE, SHOW_USERS, ADD_USER, REMOVE_USER, MSG_RECEIVED } from '../actions/ActionTypes';
 import { addMessage, showUsers, highlightUser, removeUser, sendMsgReceived, msgReceived } from '../actions';
 
 const setupWebSocket = (store) => {
