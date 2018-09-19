@@ -78,9 +78,24 @@ sio.on('connection',(socket) => {
             socket.to(connectedUsers[receivedData.target].id).emit('ADD_MESSAGE',JSON.stringify(newMessage));
         }
     });
-
+    
     // complete event listener for msg received
-    socket.on('MSG_RECEIVED', () => {});
+    socket.on('MSG_RECEIVED', (data) => {
+        
+        // to parse data in correct form
+        let receivedData;
+        try{
+            receivedData = JSON.parse(data);
+        }catch(e){
+            receivedData = data;
+        }
+        
+        if (receivedData.to) {
+            let dataToSend = {...receivedData};
+            delete dataToSend.to;
+            socket.to(connectedUsers[receivedData.to].id).emit('MSG_RECEIVED',JSON.stringify(dataToSend));
+        }
+    });
 
     // complete event lustener for msg read
     socket.on('MSG_READ', () => {});

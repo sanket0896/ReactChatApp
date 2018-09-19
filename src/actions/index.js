@@ -94,16 +94,26 @@ export const msgUploaded = ( chattingWith, localMsgId, serverMsgId) => {
     });
 }
 
-export const msgReceived = (msgId) => {
+export const msgRead = (msgId) => {
     return({
-        type: type.MSG_RECEIVED,
+        type: type.MSG_READ,
         msgId: msgId
     });
 }
 
-export const msgRead = (msgId) => {
+export const msgReceived = ( chattingWith, msgId) => {
     return({
-        type: type.MSG_READ,
+        type: type.MSG_RECEIVED,
+        chattingWith: chattingWith,
+        msgId: msgId
+    });
+}
+
+export const sendMsgReceived = ( to, msgId ) => {
+    return({
+        type: type.SEND_MSG_RECEIVED,
+        to: to,
+        from: null, // this is set in the saga
         msgId: msgId
     });
 }

@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, SHOW_MESSAGE, MSG_UPLOADED } from "../actions/ActionTypes";
+import { ADD_MESSAGE, SHOW_MESSAGE, MSG_UPLOADED, MSG_RECEIVED } from "../actions/ActionTypes";
 import readReceipt from "../utils/ReadReceiptStatus";
 
 let initialState = [];
@@ -55,8 +55,26 @@ const updateChatHistory = (state = initialState, action) => {
                 }
                 return chat;
             });
-            console.log("in update Chat History : MSG_UPLOADED", newState);
+            return newState;
             
+        case MSG_RECEIVED:
+            console.log(action);
+            
+            newState = state.map(chat => {
+                if(chat.chattingWith === action.chattingWith){
+                    /* using for to seach in reverse order because latest 
+                    messages will certainly be towards end of the array */
+                    for (let index = chat.messages.length - 1; index >= 0; index--) {
+                        let msg = chat.messages[index];
+                        if (msg.id === action.msgId) {
+                            msg.status = readReceipt.RECEIVED;
+                            break;
+                        }
+                    }    
+                }
+                return chat;
+            });
+            console.log("in update Chat History : MSG_RECEIVED", newState);
             return newState;
 
         default: 

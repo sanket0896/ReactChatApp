@@ -12,3 +12,4 @@ export const REMOVE_USER = 'REMOVE_USER';
 export const MSG_UPLOADED = 'MSG_UPLOADED';
 export const MSG_RECEIVED = 'MSG_RECEIVED';
 export const MSG_READ = 'MSG_READ';
+export const SEND_MSG_RECEIVED = 'SEND_MSG_RECEIVED';

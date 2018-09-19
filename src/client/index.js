@@ -1,6 +1,6 @@
 import sioc from 'socket.io-client';
-import { ADD_MESSAGE, SHOW_USERS, ADD_USER, REMOVE_USER } from '../actions/ActionTypes';
-import { addMessage, showUsers, highlightUser, removeUser } from '../actions';
+import { ADD_MESSAGE, SHOW_USERS, ADD_USER, REMOVE_USER, SEND_MSG_RECEIVED, MSG_RECEIVED } from '../actions/ActionTypes';
+import { addMessage, showUsers, highlightUser, removeUser, sendMsgReceived, msgReceived } from '../actions';
 
 const setupWebSocket = (store) => {
 
@@ -22,12 +22,18 @@ const setupWebSocket = (store) => {
     client.on(ADD_MESSAGE, (data) => {
         data = JSON.parse(data);
         dispatch(addMessage( data.message, data.author, data.author, data.id));
-        dispatch(highlightUser(data.author));
+        dispatch(highlightUser( data.author ));
+        dispatch(sendMsgReceived( data.author, data.id));
     });
     
     client.on(REMOVE_USER, (data) => {
         data = JSON.parse(data);
         dispatch(removeUser(data));
+    });
+
+    client.on(MSG_RECEIVED, (data) => {
+        data = JSON.parse(data);        
+        dispatch(msgReceived( data.from, data.msgId ));
     });
 
     client.on('reconnect', () => {
