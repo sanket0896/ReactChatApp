@@ -8,7 +8,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = () => {};
 
-console.log("running");
-
-
 export default connect(mapStateToProps,mapDispatchToProps)(UsersListComponent);

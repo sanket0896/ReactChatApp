@@ -4,8 +4,7 @@ import readReceipt from '../utils/ReadReceiptStatus';
 let nextMessageId = 0;
 let nextUserId = 0;
 
-export const setUsername = (name,userName) => {  
-      
+export const setUsername = (name,userName) => {        
     return({
         type: type.SET_USERNAME,
         name: name,
@@ -28,7 +27,7 @@ export const addMessage = (message, author, target, id) => {
         status = readReceipt.CREATED;
     }else{
         newId = id;
-        status = readReceipt.NONE;
+        status = readReceipt.UNREAD;
     }
     return({
         type: type.ADD_MESSAGE,
@@ -94,13 +93,6 @@ export const msgUploaded = ( chattingWith, localMsgId, serverMsgId) => {
     });
 }
 
-export const msgRead = (msgId) => {
-    return({
-        type: type.MSG_READ,
-        msgId: msgId
-    });
-}
-
 export const msgReceived = ( chattingWith, msgId) => {
     return({
         type: type.MSG_RECEIVED,
@@ -109,9 +101,34 @@ export const msgReceived = ( chattingWith, msgId) => {
     });
 }
 
+export const msgRead = ( chattingWith, msgId) => {
+    return({
+        type: type.MSG_READ,
+        chattingWith: chattingWith,
+        msgId: msgId
+    });
+}
+
+export const msgNone = ( chattingWith, msgId) => {
+    return({
+        type: type.MSG_NONE,
+        chattingWith: chattingWith,
+        msgId: msgId
+    });
+}
+
 export const sendMsgReceived = ( to, msgId ) => {
     return({
         type: type.SEND_MSG_RECEIVED,
+        to: to,
+        from: null, // this is set in the saga
+        msgId: msgId
+    });
+}
+
+export const sendMsgRead = ( to, msgId ) => {
+    return({
+        type: type.SEND_MSG_READ,
         to: to,
         from: null, // this is set in the saga
         msgId: msgId

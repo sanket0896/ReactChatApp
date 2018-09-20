@@ -10,6 +10,7 @@ const ReadReceiptStatusEnum = {
     NONE: "NONE",
     RECEIVED : "RECEIVED",
     READ: "READ",
+    UNREAD: "UNREAD",
     UPLOADED : "UPLOADED",
 }
 

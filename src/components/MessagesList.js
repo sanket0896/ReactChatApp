@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { sendMsgRead } from '../actions';
+import Message from './Message';
 
 class MessagesList extends React.Component {
 
@@ -8,13 +10,9 @@ class MessagesList extends React.Component {
         this.dummy.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
     }
 
-    setLiClassName = (author) => (
-        author === "Me" ? "me" : "not-me"
-    )
-
     getCurrentChatHistory = (selectedChat,chatHistory) => {
         let currentChatHistory = chatHistory.find((chat)=>(chat.chattingWith===selectedChat));
-
+        
         if(currentChatHistory===undefined)
             return [];
         else{
@@ -37,9 +35,11 @@ class MessagesList extends React.Component {
                 <ul id="MessagesList" className="message-list">
                     {
                         this.getCurrentChatHistory(this.props.selectedChat,this.props.chatHistory)
-                        .map(message => (<li key={message.id} className={this.setLiClassName(message.author)} >
-                        {message.author}: {message.message}
-                        </li>))
+                        .map(message => {
+                            return (
+                                <Message key={message.id} messageData={message} />
+                            );
+                        })
                     }
                 </ul>
                 <div className="dummy-div" ref={(node)=>{this.dummy=node}}></div> 
@@ -78,7 +78,11 @@ const mapStateToProps = (state) => ({
     chatHistory: state.chatHistory
 });
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = (dispatch) => ({
+    sendMsgRead: ( to, msgId ) => {
+        dispatch(sendMsgRead( to, msgId ));
+    }
+});
 
 
 export default connect(mapStateToProps,mapDispatchToProps)(MessagesList);

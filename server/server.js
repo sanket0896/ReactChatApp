@@ -18,7 +18,7 @@ sio.on('connection',(socket) => {
 
     
     socket.on('ADD_USER', (data , sendStatus) => {
-
+        
         //to avoid undefined function call
         if(sendStatus === undefined){
             sendStatus = (s)=>{};
@@ -41,21 +41,24 @@ sio.on('connection',(socket) => {
                 userName: receivedData.userName.toLowerCase(),
                 id: socket.id
             };
-
+            
             // check if username already exists 
             if (connectedUsers[newUser.userName]) {
                 sendStatus(false);
                 return;            
             }
             else{
-                connectedUsers[newUser.userName] = socket;
+                
+                connectedUsers[newUser.userName] = socket.id;
                 sendStatus(true);
                 //send the sender client list of all users except itself.
-                socket.emit('SHOW_USERS',JSON.stringify({users}));console.log("sent",users.length," users to",socket.id);
+                socket.emit('SHOW_USERS',JSON.stringify({users}));
+                console.log("sent",users.length," users to",socket.id);
                 
                 users.push(newUser);
                 // send updated user list to everyone else
-                socket.broadcast.emit('SHOW_USERS',JSON.stringify({users: [newUser]}));console.log("broadcast",newUser.userName,"to all");
+                socket.broadcast.emit('SHOW_USERS',JSON.stringify({users: [newUser]}));
+                console.log("broadcast",newUser.userName,"to all");
             }
         }
     });
@@ -75,11 +78,10 @@ sio.on('connection',(socket) => {
             let newMessage = { ...receivedData, id : uniqId() };
             allMessages.push(newMessage);
             sendUploadedReceipt( receivedData.target, receivedMsgId, newMessage.id );
-            socket.to(connectedUsers[receivedData.target].id).emit('ADD_MESSAGE',JSON.stringify(newMessage));
+            socket.to(connectedUsers[receivedData.target]).emit('ADD_MESSAGE',JSON.stringify(newMessage));
         }
     });
     
-    // complete event listener for msg received
     socket.on('MSG_RECEIVED', (data) => {
         
         // to parse data in correct form
@@ -93,12 +95,25 @@ sio.on('connection',(socket) => {
         if (receivedData.to) {
             let dataToSend = {...receivedData};
             delete dataToSend.to;
-            socket.to(connectedUsers[receivedData.to].id).emit('MSG_RECEIVED',JSON.stringify(dataToSend));
+            socket.to(connectedUsers[receivedData.to]).emit('MSG_RECEIVED',JSON.stringify(dataToSend));
         }
     });
 
-    // complete event lustener for msg read
-    socket.on('MSG_READ', () => {});
+    socket.on('MSG_READ', (data) => {
+        // to parse data in correct form
+        let receivedData;
+        try{
+            receivedData = JSON.parse(data);
+        }catch(e){
+            receivedData = data;
+        }
+        
+        if (receivedData.to) {
+            let dataToSend = {...receivedData};
+            delete dataToSend.to;
+            socket.to(connectedUsers[receivedData.to]).emit('MSG_READ',JSON.stringify(dataToSend));
+        }
+    });
 
     socket.on('disconnect', () => {
         let closedUserName;
