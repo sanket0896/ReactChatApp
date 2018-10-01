@@ -1,7 +1,19 @@
-import { ADD_MESSAGE, SHOW_MESSAGE, MSG_UPLOADED, MSG_RECEIVED, MSG_READ, MSG_NONE } from "../actions/ActionTypes";
+import { ADD_MESSAGE, SHOW_MESSAGE, MSG_UPLOADED, MSG_RECEIVED, MSG_READ, MSG_NONE, USER_TYPING } from "../actions/ActionTypes";
 import readReceipt from "../utils/ReadReceiptStatus";
 
 let initialState = [];
+/**
+ * [{
+ *  chattingWith: String,
+ *  isTyping: Bool,
+ *  messages: [{
+ *          id: String
+ *          message: String
+ *          author: String
+ *          status: Enum
+ *      }]
+ * }]
+ */
 
 const updateChatHistory = (state = initialState, action) => {
 
@@ -25,6 +37,7 @@ const updateChatHistory = (state = initialState, action) => {
             else{
                 newState = state.concat([{
                     chattingWith: action.target,
+                    isTyping: false,
                     messages:[{
                         id: action.id,
                         message: action.message,
@@ -106,6 +119,16 @@ const updateChatHistory = (state = initialState, action) => {
                 }
                 return chat;
             });
+            return newState;
+
+        case USER_TYPING:
+            newState = state.map(chat => {
+                if(chat.chattingWith === action.chattingWith){
+                    chat.isTyping = action.isTyping;
+                }
+                return chat;
+            });
+            
             return newState;
 
         default: 

@@ -1,6 +1,6 @@
 import sioc from 'socket.io-client';
-import { ADD_MESSAGE, SHOW_USERS, ADD_USER, REMOVE_USER, MSG_RECEIVED, MSG_READ } from '../actions/ActionTypes';
-import { addMessage, showUsers, highlightUser, removeUser, sendMsgReceived, msgReceived, msgRead } from '../actions';
+import { ADD_MESSAGE, SHOW_USERS, ADD_USER, REMOVE_USER, MSG_RECEIVED, MSG_READ, USER_TYPING } from '../actions/ActionTypes';
+import { addMessage, showUsers, highlightUser, removeUser, sendMsgReceived, msgReceived, msgRead, userTyping } from '../actions';
 
 const setupWebSocket = (store) => {
 
@@ -38,6 +38,11 @@ const setupWebSocket = (store) => {
     client.on(MSG_READ, (data) => {
         data = JSON.parse(data);        
         dispatch(msgRead( data.from, data.msgId ));
+    });
+
+    client.on(USER_TYPING, (data) => {
+        data = JSON.parse(data);        
+        dispatch(userTyping( data.from, data.isTyping ));
     });
 
     client.on('reconnect', () => {

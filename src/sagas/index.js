@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga/effects';
-import { ADD_MESSAGE, SET_USERNAME, ADD_USER, SEND_MSG_RECEIVED, MSG_RECEIVED, SEND_MSG_READ, MSG_READ } from '../actions/ActionTypes';
+import { ADD_MESSAGE, SET_USERNAME, ADD_USER, SEND_MSG_RECEIVED, MSG_RECEIVED, SEND_MSG_READ, MSG_READ, SEND_USER_TYPING, USER_TYPING } from '../actions/ActionTypes';
 import { usernameSetSuccess, msgUploaded } from '../actions';
 
 const handleNewMessage = function* (params,dispatch) {
@@ -31,6 +31,13 @@ const handleNewMessage = function* (params,dispatch) {
         payload.from = username;
         
         params.socket.emit(MSG_READ, JSON.stringify(payload));
+    });
+
+    yield takeEvery(SEND_USER_TYPING, (action)=>{
+        let { type , ...payload } = action;
+        payload.from = username;
+        
+        params.socket.emit(USER_TYPING, JSON.stringify(payload));
     });
 
     //helper function

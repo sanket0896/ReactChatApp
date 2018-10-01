@@ -115,6 +115,23 @@ sio.on('connection',(socket) => {
         }
     });
 
+    socket.on('USER_TYPING', (data) => {
+        // to parse data in correct form
+        let receivedData;
+        try{
+            receivedData = JSON.parse(data);
+        }catch(e){
+            receivedData = data;
+        }
+        
+        if (receivedData.to) {
+            let dataToSend = {...receivedData};
+            delete dataToSend.to;
+            socket.to(connectedUsers[receivedData.to]).emit('USER_TYPING',JSON.stringify(dataToSend));
+            
+        }
+    });
+
     socket.on('disconnect', () => {
         let closedUserName;
         let closedUserIndex = users.findIndex((user) => {

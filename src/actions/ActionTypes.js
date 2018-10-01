@@ -13,5 +13,7 @@ export const MSG_NONE = 'MSG_NONE';
 export const MSG_UPLOADED = 'MSG_UPLOADED';
 export const MSG_RECEIVED = 'MSG_RECEIVED';
 export const MSG_READ = 'MSG_READ';
+export const USER_TYPING = 'USER_TYPING';
 export const SEND_MSG_RECEIVED = 'SEND_MSG_RECEIVED';
 export const SEND_MSG_READ = 'SEND_MSG_READ';
+export const SEND_USER_TYPING = 'SEND_USER_TYPING';

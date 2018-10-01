@@ -84,6 +84,14 @@ export const removeUser = (user) => {
     });
 }
 
+export const userTyping = ( chattingWith, isTyping ) => {
+    return({
+        type: type.USER_TYPING,
+        chattingWith: chattingWith,
+        isTyping: isTyping
+    });
+}
+
 export const msgUploaded = ( chattingWith, localMsgId, serverMsgId) => {
     return({
         type: type.MSG_UPLOADED,
@@ -132,5 +140,14 @@ export const sendMsgRead = ( to, msgId ) => {
         to: to,
         from: null, // this is set in the saga
         msgId: msgId
+    });
+}
+
+export const sendUserTyping = ( to, isTyping ) => {
+    return({
+        type: type.SEND_USER_TYPING,
+        to: to,
+        from: null, // this is set in the saga
+        isTyping : isTyping
     });
 }
