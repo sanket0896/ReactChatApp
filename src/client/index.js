@@ -13,9 +13,8 @@ const setupWebSocket = (store) => {
 
     client.on(SHOW_USERS, (data) => {
         data = JSON.parse(data);      
-        console.log("in client, SHOW_USERS");
         if(store.getState().usernameSetSuccess) { 
-            dispatch(showUsers(data.users));console.log("dispatched");
+            dispatch(showUsers(data.users));
             }
     });
 
