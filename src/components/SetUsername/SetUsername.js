@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setUsername } from '../actions';
+import { setUsername } from '../../actions';
+import "./SetUsername.css";
 
 const SetUsername = (props) => {
     let name=null,username = null;

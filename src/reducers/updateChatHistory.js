@@ -61,7 +61,7 @@ const updateChatHistory = (state = initialState, action) => {
                         let msg = chat.messages[index];
                         if (msg.id === action.localMsgId) {
                             msg.id = action.serverMsgId;
-                            msg.status = readReceipt.UPLOADED;
+                            msg.status = readReceipt.SENT;
                             break;
                         }
                     }    

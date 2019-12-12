@@ -1,7 +1,7 @@
 /** indicates the status of message, i.e. Read Receipts 
       * Possible Values: 
       * created : message created
-      * uploaded : message uploaded to server
+      * sent : message sent to server
       * received : message received by target
       * read : message read by target
 */
@@ -11,7 +11,7 @@ const ReadReceiptStatusEnum = {
     RECEIVED : "RECEIVED",
     READ: "READ",
     UNREAD: "UNREAD",
-    UPLOADED : "UPLOADED",
+    SENT : "SENT",
 }
 
 const readReceipt = Object.freeze(ReadReceiptStatusEnum);

@@ -10,70 +10,8 @@
   position: fixed;
   top: 0;
   left: 0;
-}
-
-.user-pane{
-  display: flex;
-  height: 100%;
-  width: 15%;
-}
-
-.users-list{
-  /* display: flex; */
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  background: #324fff;
-  overflow: auto;
-  text-decoration: none;
-  list-style: none;
-}
-
-.users-list > .user-name{
-  cursor: default;
-  margin-bottom: 1em; 
-}
-
-.users-list > .user-name:first-child{
-  margin-top: 2em;
-}
-
-/* .users-list > .user-name:hover{
-  text-decoration: underline; 
-} */
-
-.users-list > .user-name.selected{
-  background: lightseagreen;
-}
-
-.message-pane{
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 85%;
-}
-
-.msg-container{
-  /* display: flex; */
-  margin: 0;
-  height: 90%;
-  width: 102%;
-  background: #7f3;
-  overflow: auto;
-}
-
-.message-list{
-  list-style: none;
-}
-
-.add-message{
-  display: flex;
-  height: 10%;
-  width: 100%;
-  background: #a41;
-}
-
-.highlighted{
-  text-transform: uppercase;
-  background: #fa00e5 !important;
+  align-items: center;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 15px;
 }

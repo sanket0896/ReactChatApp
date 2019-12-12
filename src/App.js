@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
-import UserPane from './components/UserPane';
-import MessagePane from './components/MessagePane';
-import SetUsername from './components/SetUsername';
+import UserPane from './components/UserPane/UserPane';
+import MessagePane from './components/MessagePane/MessagePane';
+import SetUsername from './components/SetUsername/SetUsername';
 
 class App extends Component {
   render() {

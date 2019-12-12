@@ -1,0 +1,18 @@
+.user-pane{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 20%;
+    border-right: 1px solid #cdcdcd;
+}
+.online{
+    text-transform: uppercase;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    font-family: monospace;
+    font-size: 1.3em;
+    border-bottom: 1px solid #cdcdcd;
+}

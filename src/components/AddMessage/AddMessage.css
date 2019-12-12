@@ -1,0 +1,28 @@
+.add-msg{
+    display: flex;
+    height: 10%;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #cdcdcd;
+    padding: 0 2em;
+}
+
+.add-msg-inp{
+    height: 90%;
+    border: none;
+    flex-grow: 1;
+    font-size: 15px;
+    font-family: monospace;
+    resize: none;
+    padding: 5px;
+}
+
+.add-msg-inp:focus{
+    outline: none;
+}
+
+.add-msg-inp::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+    /* display: none; */
+  }

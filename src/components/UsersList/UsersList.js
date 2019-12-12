@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { selectChat } from '../actions';
-
+import { selectChat } from '../../actions';
+import './UsersList.css';
 
 // const UsersList = (props) => {
 
@@ -27,7 +27,7 @@ class UsersList extends Component{
         if(document.getElementsByClassName("selected").length){
             document.querySelector(".selected").classList.remove("selected");
         }
-        e.target.className = this.addClasses(["user-name","selected"]);
+        e.target.className = this.addClasses(["user","selected"]);
         this.props.selectChat(userName);
     }
 
@@ -35,8 +35,12 @@ class UsersList extends Component{
         return(
             <ul id="UsersList" className="users-list">
                 {
-                this.props.users.map((user,key) => (<li key={user.id} id={key} username={user.userName} onClick={(e)=>this.handleClick(e,user.userName,user.isHighlighted)} className={this.addClasses(["user-name"],user.isHighlighted)}>
-                    {user.name}: @{user.userName} 
+                this.props.users.map((user,key) => (<li key={user.id} id={key} username={user.userName} onClick={(e)=>this.handleClick(e,user.userName,user.isHighlighted)} className={this.addClasses(["user"],user.isHighlighted)}>
+                    <div className="user-img">{user.name[0]}</div>
+                    <div className="user-details">
+                        <div className="user-name">{user.name}</div>
+                        <div className="user-userName">@{user.userName}</div>
+                    </div>
                 </li>))}
             </ul>
         );

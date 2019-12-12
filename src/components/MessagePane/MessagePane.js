@@ -1,6 +1,7 @@
 import React from 'react';
-import MessagesList from './MessagesList';
-import AddMessage from './AddMessage';
+import MessagesList from '../MessagesList/MessagesList';
+import AddMessage from '../AddMessage/AddMessage';
+import './MessagePane.css';
 
 const MessagePane = (props) => {
     return (

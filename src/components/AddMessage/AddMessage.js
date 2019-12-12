@@ -1,17 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addMessage, sendUserTyping } from "../actions/index";
+import { addMessage, sendUserTyping } from "../../actions/index";
+import './AddMessage.css';
 
 const WAIT_DURATION = 3000;
 class AddMessage extends React.Component{
 
     state = {
-        isUserTyping : false
+        isUserTyping : false,
+        textAreaPrevHeight: 25
     }
+
+    textAreaInput = null;
+    textAreaParent = null;
 
     componentWillMount(){
         this.timer = null;
+    }
+
+    componentDidMount(){
+        this.setState({textAreaPrevHeight: this.textAreaInput.scrollHeight});
     }
 
     setStartTyping = () => {
@@ -42,16 +51,20 @@ class AddMessage extends React.Component{
             this.timer = setTimeout(this.setStopTyping, WAIT_DURATION);
         }
     }
+
     // let input,isUserTyping;
     render(){
-        let input;
         return(
-            <input id="addMessage" 
-            className="add-message"
-            type="text"
-            onKeyPress={e => this.handleKeyPress(e)}
-            onBlur = {(e) => {e.target.focus()}}
-            ref = {(node)=>{input = node}} autoFocus />
+            <div className="add-msg"
+            ref = {(node)=>{this.textAreaParent = node}}>
+                <textarea id="addMsgInp" 
+                className="add-msg-inp"
+                type="text"
+                placeholder="Start typing here"
+                onKeyPress={e => this.handleKeyPress(e)}
+                onBlur = {(e) => {e.target.focus()}}
+                ref = {(node)=>{this.textAreaInput = node}} autoFocus ></textarea>
+            </div>
         );
     }
 }

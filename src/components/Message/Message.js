@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { sendMsgRead, msgNone } from '../actions';
-import readreceipt from '../utils/ReadReceiptStatus';
+import { sendMsgRead, msgNone } from '../../actions';
+import readreceipt from '../../utils/ReadReceiptStatus';
+import './Message.css';
 
 class Message extends React.Component {
 
@@ -12,14 +13,24 @@ class Message extends React.Component {
         }
     }
 
+    getReadStatus(status){
+        if(status === readreceipt.NONE || status === readreceipt.CREATED || status === readreceipt.UNREAD){
+            return "";
+        }else{
+            return status;
+        }
+    }
+
     setLiClassName = (author) => (
         author.toLowerCase() === "me" ? "me" : "not-me"
     )
 
     render(){
         return (
-            <li id={this.props.messageData.id} className={this.setLiClassName(this.props.messageData.author)} >
-                {this.props.messageData.author}: {this.props.messageData.message}
+            <li id={this.props.messageData.id} className={"msg "+this.setLiClassName(this.props.messageData.author)} >
+                <div className="msg-author">{this.props.messageData.author}</div>
+                <div className="msg-text">{this.props.messageData.message}</div>
+                <div className="msg-status">{this.getReadStatus(this.props.messageData.status)}</div>
             </li>
         );
     }

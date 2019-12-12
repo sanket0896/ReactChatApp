@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { sendMsgRead } from '../actions';
-import Message from './Message';
+import { sendMsgRead } from '../../actions';
+import Message from '../Message/Message';
+import './MessagesList.css';
 
 class MessagesList extends React.Component {
 
@@ -36,8 +37,9 @@ class MessagesList extends React.Component {
                     {
                         this.getCurrentChatHistory(this.props.selectedChat,this.props.chatHistory)
                         .map(message => {
+                            console.log(message.status);
                             return (
-                                <Message key={message.id} messageData={message} />
+                                <Message key={message.id} messageData={{...message}} />
                             );
                         })
                     }
