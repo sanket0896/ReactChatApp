@@ -8,10 +8,6 @@ import './UsersList.css';
 
 class UsersList extends Component{
 
-    componentDidMount= () => {
-        // document.getElementsByClassName("user-name")[this.props.selectedUserIndex].classList.add("selected");
-    }
-
     addClasses = (classes,isHighlighted) => {
         let newClasses = classes;
         

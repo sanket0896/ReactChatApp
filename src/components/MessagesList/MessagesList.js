@@ -7,6 +7,13 @@ import './MessagesList.css';
 
 class MessagesList extends React.Component {
 
+    TYPING_MESSAGE = {
+        author: "",
+        id: "xce0d9", // random id
+        message: "Typing...",
+        status: "NONE",
+    }
+
     scrollToBottom = () => {
         this.dummy.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
     }
@@ -20,6 +27,16 @@ class MessagesList extends React.Component {
             return currentChatHistory.messages;
         }
 
+    }
+
+    isUserTyping = (selectedChat, chatHistory) => {
+        let currentChatHistory = chatHistory.find((chat)=>(chat.chattingWith===selectedChat));
+
+        if(currentChatHistory===undefined)
+            return false;
+        else{
+            return currentChatHistory.isTyping;
+        }
     }
 
     componentDidMount = () => {
@@ -37,11 +54,16 @@ class MessagesList extends React.Component {
                     {
                         this.getCurrentChatHistory(this.props.selectedChat,this.props.chatHistory)
                         .map(message => {
-                            console.log(message.status);
                             return (
                                 <Message key={message.id} messageData={{...message}} />
                             );
                         })
+                    }
+                    {
+                        this.isUserTyping(this.props.selectedChat,this.props.chatHistory) && 
+                        <Message messageData={{
+                            ...this.TYPING_MESSAGE, author: this.props.selectedChat
+                        }} />
                     }
                 </ul>
                 <div className="dummy-div" ref={(node)=>{this.dummy=node}}></div> 

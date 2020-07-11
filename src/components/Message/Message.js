@@ -28,7 +28,7 @@ class Message extends React.Component {
     render(){
         return (
             <li id={this.props.messageData.id} className={"msg "+this.setLiClassName(this.props.messageData.author)} >
-                <div className="msg-author">{this.props.messageData.author}</div>
+                <div className="msg-author">{this.props.messageData.author.toLowerCase() === "me" ? "Me" : this.props.messageData.author[0]}</div>
                 <div className="msg-text">{this.props.messageData.message}</div>
                 <div className="msg-status">{this.getReadStatus(this.props.messageData.status)}</div>
             </li>
