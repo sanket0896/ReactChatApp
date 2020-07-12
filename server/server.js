@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const sio = socketIO(server);
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 5000;
 let users = [];
 let connectedUsers = {};
 let allMessages = [];
