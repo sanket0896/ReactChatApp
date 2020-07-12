@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "express": "^4.16.3",
+    "mongodb": "^3.5.4",
+    "mongoose": "^5.9.2",
     "node-sass": "^4.13.0",
     "npm-run-all": "^4.1.2",
     "prop-types": "^15.6.0",
