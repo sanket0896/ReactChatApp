@@ -153,4 +153,4 @@ sio.on('connection',(socket) => {
     });
 });
 
-server.listen(port);
+server.listen(port, () => {console.log("listening at port: " + port)});
