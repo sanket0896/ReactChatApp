@@ -6,8 +6,8 @@ const setupWebSocket = (store) => {
 
     let dispatch = store.dispatch;
 
-    // let endPoint = "http://smchats.herokuapp.com:80";
-    let endPoint = "localhost:5000";
+    let endPoint = "https://react-chat-be.herokuapp.com:5000";
+    // let endPoint = "localhost:5000";
 
     const client = sioc(endPoint,{path: "/socket.io"});
 
