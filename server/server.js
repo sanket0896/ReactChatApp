@@ -1,18 +1,15 @@
 const express = require('express');
-const http = require('http')
 const socketIO = require('socket.io');
 let uniqId = require('uniqid');
-
-const app = express();
-const server = http.createServer(app);
-const sio = socketIO(server);
-
 const port = process.env.PORT || 5000;
+
+const app = express().use(express.static('build')).listen(port);
+// const server = http.createServer(app);
+const sio = socketIO(app);
+
 let users = [];
 let connectedUsers = {};
 let allMessages = [];
-
-app.use(express.static('build'));
 
 sio.on('connection',(socket) => {
 
@@ -153,5 +150,5 @@ sio.on('connection',(socket) => {
     });
 });
 
-server.listen(port);
+// server.listen(port);
 console.log(`listening on ${port}`);
