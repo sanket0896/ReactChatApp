@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const sio = socketIO(server);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 80;
 let users = [];
 let connectedUsers = {};
 let allMessages = [];
@@ -153,4 +153,5 @@ sio.on('connection',(socket) => {
     });
 });
 
-server.listen(port, () => {console.log("listening at port: " + port)});
+server.listen(port);
+console.log(`listening on ${port}`);
